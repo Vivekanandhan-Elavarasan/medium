@@ -150,7 +150,7 @@ let url=`https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/th
         document.querySelector('.blog__slider').innerHTML = output
   })
 
-  fetch('let url= `https://api.medium.com/v1/users/14e77791049fecaf377d99c6e4497b4a6ffe3896f35c14310fa72c7a8f9678b96/posts`;', {
+  fetch('https://api.medium.com/v1/users/14e77791049fecaf377d99c6e4497b4a6ffe3896f35c14310fa72c7a8f9678b96/posts', {
       method: 'POST', Host: 'api.medium.com', Authorization: 'Bearer 181d415f34379af07b2c11d144dfbe35d' ,Type: 'application/json',Accept: 'application/json',Charset: 'utf-8',
   body: JSON.stringify({"title": "Liverpool FC",
   "contentFormat": "html",
