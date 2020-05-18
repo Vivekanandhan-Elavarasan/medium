@@ -39,6 +39,7 @@ ul{
           type="text"
           id="input"
           class="form-control"
+          placeholder="username search"
           onchange="getGif(this.value)"
         />
         </div>
@@ -56,7 +57,8 @@ ul{
     <script>
         //  let url=`https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${value}`
         function getGif(value){
-            let url=`https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/${value}`
+            let url=`https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${value}`
+           
          fetch(url)
    .then((res) => res.json())
    .then((data) => {
@@ -104,6 +106,86 @@ ul{
 })
 
 }
+
+let url=`https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/the-story`;
+           
+           fetch(url)
+     .then((res) => res.json())
+     .then((data) => {
+        // Filter for acctual posts. Comments don't have categories, therefore can filter for items with categories bigger than 0
+        const res = data.items //This is an array with the content. No feed, no info about author etc..
+        const posts = res.filter(item => item.categories.length > 0) // That's the main trick* !
+  
+        // Functions to create a short text out of whole blog's content
+        function toText(node) {
+           let tag = document.createElement('div')
+           tag.innerHTML = node
+           node = tag.innerText
+           return node
+        }
+        function shortenText(text,startingPoint ,maxLength) {
+           return text.length > maxLength?
+           text.slice(startingPoint, maxLength):
+           text
+        }
+      
+        // Put things in right spots of markup
+        console.log("post",posts);
+        let output = '';
+        posts.forEach((item) => {
+  
+           output += ` <div class="card mb-3" style="max-width: 540px;">
+                  <div class="row no-gutters"> </div>
+                  <div style="width:300px;">
+                             <img src="${item.thumbnail}" class="card-img">
+                                  </div>
+                  <div class="col-md-12">
+                  <div class="card-body">
+                  <h5 class="card-title">${shortenText(item.title, 0, 30)+ '...'}</h5>
+                       <p class="card-text">${item.author}-${shortenText(item.pubDate,0 ,10)}</p>
+                     <p class="card-text"><small class="text-muted">${'...' + shortenText(toText(item.content),60, 300)+ '...'}</small></p>
+                     <a href="${item.link}">continue reading...</a><br>
+                     <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo" onclick="art()"> Click for more Art news</button>
+                    </div>
+                        </div>
+                             </div>
+                               </div>`
+  
+        })
+        document.querySelector('.blog__slider').innerHTML = output
+  })
+/*var request = require('request');
+
+var token = '203899696448b28de93698a0085252ca150f0b4a14bad567b33ee00a0553df0f5'; //get one at https://medium.com/me/settings scroll to the very end of the page and 'add' integration token
+var userId = '14e77791049fecaf377d99c6e4497b4a6ffe3896f35c14310fa72c7a8f9678b96'; //open this link https://api.medium.com/v1/me?accessToken=XXXX in your browser and get your userid there
+
+var post_data = {
+	'title' : 'Post title',
+	'contentFormat' : 'html',
+	'content': '<p>Test HTML post</p>',
+	'canonicalUrl': 'https://medium.com/@vivekplusone', //this one is important to avoid SEO issues
+	'publishStatus': 'draft'
+};
+
+console.log(post_data);
+
+console.log('Sending the post request...');
+
+// Set up the request
+request({
+	url: 'https://api.medium.com/v1/users/' + userId + '/posts',
+	method: 'POST',
+	json: true,
+	headers: {
+		'Authorization': 'Bearer ' + token,
+        	"content-type": "application/json"
+    	},
+	body: post_data
+	},
+	function (error, response, body) {
+		console.log(body);
+		console.log(error);
+	});*/
 
 
     </script>
