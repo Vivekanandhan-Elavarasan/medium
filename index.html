@@ -35,6 +35,12 @@ ul{
           <h2 class="blog__header2">Medium
             <span class="blog__header2Span">posts</span>
           </h2>
+          <input
+          type="text"
+          id="input"
+          class="form-control"
+          onchange="getGif(this.value)"
+        />
         </div>
         <ul class="blog__slider">
           Posts go here
@@ -48,7 +54,10 @@ ul{
 
 
     <script>
-         fetch('https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@yasmintayag')
+        //  let url=`https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${value}`
+        function getGif(value){
+            let url=`https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/${value}`
+         fetch(url)
    .then((res) => res.json())
    .then((data) => {
       // Filter for acctual posts. Comments don't have categories, therefore can filter for items with categories bigger than 0
@@ -69,7 +78,7 @@ ul{
       }
     
       // Put things in right spots of markup
-      console.log(posts);
+      console.log("post",posts);
       let output = '';
       posts.forEach((item) => {
 
@@ -94,7 +103,7 @@ ul{
       document.querySelector('.blog__slider').innerHTML = output
 })
 
-
+}
 
 
     </script>
