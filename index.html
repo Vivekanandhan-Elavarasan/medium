@@ -26,39 +26,36 @@ ul{
     </title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+        
 </head>
 <body>
     <section id="blog" class="blog">
-        <div class="blog__header">
-          <p class="blog__header1"></p>
-          <h2 class="blog__header2">Medium
-            <span class="blog__header2Span">posts</span>
+          <h2 class="">Medium Posts
+            <span class="blog__header2Span"></span>
           </h2>
+          <label>UserName Search</label>
           <input
           type="text"
           id="input"
           class="form-control"
-          placeholder="username search"
+          placeholder=" username search and press enter"
           onchange="getGif(this.value)"
-        />
+        /><br><br>
         </div>
         <ul class="blog__slider">
           Posts go here
         </ul>
-        <ul class="blog__counter">
-          <li class="blog__counterItem blog__counterItem-active"></li>
-          <li class="blog__counterItem"></li>
-          <li class="blog__counterItem"></li>
-        </ul>
+        
       </section>
 
 
     <script>
+       // module.exports = require("mediumLibrary.js")
         //  let url=`https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${value}`
         function getGif(value){
+            //let url=`https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${value}`
             let url=`https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${value}`
-           
+           //let url=`https://api.medium.com/search?q=${value}`;
          fetch(url)
    .then((res) => res.json())
    .then((data) => {
@@ -95,7 +92,6 @@ ul{
                      <p class="card-text">${item.author}-${shortenText(item.pubDate,0 ,10)}</p>
                    <p class="card-text"><small class="text-muted">${'...' + shortenText(toText(item.content),60, 300)+ '...'}</small></p>
                    <a href="${item.link}">continue reading...</a><br>
-                   <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo" onclick="art()"> Click for more Art news</button>
                   </div>
                       </div>
                            </div>
@@ -145,7 +141,6 @@ let url=`https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/th
                        <p class="card-text">${item.author}-${shortenText(item.pubDate,0 ,10)}</p>
                      <p class="card-text"><small class="text-muted">${'...' + shortenText(toText(item.content),60, 300)+ '...'}</small></p>
                      <a href="${item.link}">continue reading...</a><br>
-                     <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo" onclick="art()"> Click for more Art news</button>
                     </div>
                         </div>
                              </div>
@@ -154,6 +149,21 @@ let url=`https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/th
         })
         document.querySelector('.blog__slider').innerHTML = output
   })
+
+  fetch('let url= `https://api.medium.com/v1/users/14e77791049fecaf377d99c6e4497b4a6ffe3896f35c14310fa72c7a8f9678b96/posts`;', {
+      method: 'POST', Host: 'api.medium.com', Authorization: 'Bearer 181d415f34379af07b2c11d144dfbe35d' ,Type: 'application/json',Accept: 'application/json',Charset: 'utf-8',
+  body: JSON.stringify({"title": "Liverpool FC",
+  "contentFormat": "html",
+  "content": "<h1>Liverpool FC</h1><p>You’ll never walk alone.</p>",
+  "canonicalUrl": "http://jamietalbot.com/posts/liverpool-fc",
+  "tags": ["football", "sport", "Liverpool"],
+  "publishStatus": "public"}),
+headers: {
+"Content-type": "application/json; charset=UTF-8"
+}
+})
+.then(response => response.json())
+.then(json => console.log("fetch",json))
 /*var request = require('request');
 
 var token = '203899696448b28de93698a0085252ca150f0b4a14bad567b33ee00a0553df0f5'; //get one at https://medium.com/me/settings scroll to the very end of the page and 'add' integration token
@@ -185,8 +195,17 @@ request({
 	function (error, response, body) {
 		console.log(body);
 		console.log(error);
-	});*/
+    });*/
 
+  // let url= `https://api.medium.com/v1/users/14e77791049fecaf377d99c6e4497b4a6ffe3896f35c14310fa72c7a8f9678b96/posts`;
+   
+/* will return
+{
+“userId”: 1,
+“title”: “clean room”,
+“completed”: false,
+“id”: 201
+}*/
 
     </script>
 </body>
