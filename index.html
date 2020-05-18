@@ -2,6 +2,25 @@
 <html>
 
 <head>
+    <style>
+        a{
+  color: inherit;
+  text-decoration: none;
+}
+ul{
+   list-style: none;
+}
+
+.blog{
+   margin: 3rem 1rem;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   
+}
+
+    </style>
     <title>
         Medium
     </title>
@@ -10,6 +29,74 @@
 
 </head>
 <body>
+    <section id="blog" class="blog">
+        <div class="blog__header">
+          <p class="blog__header1"></p>
+          <h2 class="blog__header2">Medium
+            <span class="blog__header2Span">posts</span>
+          </h2>
+        </div>
+        <ul class="blog__slider">
+          Posts go here
+        </ul>
+        <ul class="blog__counter">
+          <li class="blog__counterItem blog__counterItem-active"></li>
+          <li class="blog__counterItem"></li>
+          <li class="blog__counterItem"></li>
+        </ul>
+      </section>
 
+
+    <script>
+         fetch('https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@yasmintayag')
+   .then((res) => res.json())
+   .then((data) => {
+      // Filter for acctual posts. Comments don't have categories, therefore can filter for items with categories bigger than 0
+      const res = data.items //This is an array with the content. No feed, no info about author etc..
+      const posts = res.filter(item => item.categories.length > 0) // That's the main trick* !
+
+      // Functions to create a short text out of whole blog's content
+      function toText(node) {
+         let tag = document.createElement('div')
+         tag.innerHTML = node
+         node = tag.innerText
+         return node
+      }
+      function shortenText(text,startingPoint ,maxLength) {
+         return text.length > maxLength?
+         text.slice(startingPoint, maxLength):
+         text
+      }
+    
+      // Put things in right spots of markup
+      console.log(posts);
+      let output = '';
+      posts.forEach((item) => {
+
+         output += ` <div class="card mb-3" style="max-width: 540px;">
+                <div class="row no-gutters"> </div>
+                <div style="width:300px;">
+                           <img src="${item.thumbnail}" class="card-img">
+                                </div>
+                <div class="col-md-12">
+                <div class="card-body">
+                <h5 class="card-title">${shortenText(item.title, 0, 30)+ '...'}</h5>
+                     <p class="card-text">${item.author}-${shortenText(item.pubDate,0 ,10)}</p>
+                   <p class="card-text"><small class="text-muted">${'...' + shortenText(toText(item.content),60, 300)+ '...'}</small></p>
+                   <a href="${item.link}">continue reading...</a><br>
+                   <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo" onclick="art()"> Click for more Art news</button>
+                  </div>
+                      </div>
+                           </div>
+                             </div>`
+
+      })
+      document.querySelector('.blog__slider').innerHTML = output
+})
+
+
+
+
+    </script>
 </body>
 </html>
