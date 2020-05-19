@@ -59,11 +59,11 @@ ul{
          fetch(url)
    .then((res) => res.json())
    .then((data) => {
-      // Filter for acctual posts. Comments don't have categories, therefore can filter for items with categories bigger than 0
-      const res = data.items //This is an array with the content. No feed, no info about author etc..
-      const posts = res.filter(item => item.categories.length > 0) // That's the main trick* !
+      
+      const res = data.items 
+      const posts = res.filter(item => item.categories.length > 0) 
 
-      // Functions to create a short text out of whole blog's content
+    
       function toText(node) {
          let tag = document.createElement('div')
          tag.innerHTML = node
@@ -76,7 +76,7 @@ ul{
          text
       }
     
-      // Put things in right spots of markup
+      
       console.log("post",posts);
       let output = '';
       posts.forEach((item) => {
@@ -108,11 +108,11 @@ let url=`https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/th
            fetch(url)
      .then((res) => res.json())
      .then((data) => {
-        // Filter for acctual posts. Comments don't have categories, therefore can filter for items with categories bigger than 0
-        const res = data.items //This is an array with the content. No feed, no info about author etc..
-        const posts = res.filter(item => item.categories.length > 0) // That's the main trick* !
+       
+        const res = data.items 
+        const posts = res.filter(item => item.categories.length > 0) 
   
-        // Functions to create a short text out of whole blog's content
+       
         function toText(node) {
            let tag = document.createElement('div')
            tag.innerHTML = node
@@ -125,7 +125,7 @@ let url=`https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/th
            text
         }
       
-        // Put things in right spots of markup
+       
         console.log("post",posts);
         let output = '';
         posts.forEach((item) => {
@@ -151,8 +151,10 @@ let url=`https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/th
   })
 // https://api.medium.com/v1/me?accessToken=XXXX
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
-const url1 = `https://api.medium.com/v1/accessToken=203899696448b28de93698a0085252ca150f0b4a14bad567b33ee00a0553df0f5`;
-  fetch(url1, {
+//https://api.medium.com/v1/accessToken=203899696448b28de93698a0085252ca150f0b4a14bad567b33ee00a0553df0f5
+
+const url1 = `https://api.medium.com/v1/users/14e77791049fecaf377d99c6e4497b4a6ffe3896f35c14310fa72c7a8f9678b96/posts`;
+  fetch(proxyurl+url1, {
       method: 'POST', Host: 'api.medium.com', Authorization: 'vivekplusone 203899696448b28de93698a0085252ca150f0b4a14bad567b33ee00a0553df0f5' ,Type: 'application/json',Accept: 'application/json',Charset: 'utf-8',
   body: JSON.stringify({"title": "Liverpool FC",
   "contentFormat": "html",
