@@ -1,0 +1,35 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <script>
+        const Url = 'https://api.medium.com/v1/users/14e77791049fecaf377d99c6e4497b4a6ffe3896f35c14310fa72c7a8f9678b96/posts';
+        const Data = {
+            "title": "Lirl FC",
+            "contentFormat": "html",
+            "content": "<h1>Liverpool FC</h1><p>You’ll never walk alone.</p>",
+            "canonicalUrl": "http://jamietalbot.com/posts/liverpool-fc",
+            "tags": ["football", "sport", "Liverpool"],
+            "publishStatus": "public"
+        };
+        const otherPram = {
+            headers: {
+                'content-type': 'application/json',
+                'authorization': 'Bearer 28c59f37391eb0fdf8eee216e687f97f78c3e57df7dba7dc4b5788f5fb65cb076'
+            },
+            body: Data,
+            method: "POST"
+
+        };
+
+        fetch(Url, otherPram)
+            .then(data => { return data.json() })
+            .then(res => { console.log(res) })
+            .catch(error => console.log(error))
+    </script>
+</body>
+
+</html>
