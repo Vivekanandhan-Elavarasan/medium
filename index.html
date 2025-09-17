@@ -150,12 +150,11 @@ let url=`https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/th
         document.querySelector('.blog__slider').innerHTML = output
   })
 // https://api.medium.com/v1/me?accessToken=XXXX
-const proxyurl = "https://cors-anywhere.herokuapp.com/";
-//https://api.medium.com/v1/accessToken=203899696448b28de93698a0085252ca150f0b4a14bad567b33ee00a0553df0f5
+const proxyurl 
 
-const url1 = `https://api.medium.com/v1/users/14e77791049fecaf377d99c6e4497b4a6ffe3896f35c14310fa72c7a8f9678b96/posts`;
+`;
   fetch(proxyurl+url1, {
-      method: 'POST', Host: 'api.medium.com', Authorization: 'vivekplusone 203899696448b28de93698a0085252ca150f0b4a14bad567b33ee00a0553df0f5' ,Type: 'application/json',Accept: 'application/json',Charset: 'utf-8',
+      method: 'POST', Host: 'api.medium.com', ' ,Type: 'application/json',Accept: 'application/json',Charset: 'utf-8',
   body: JSON.stringify({"title": "Liverpool FC",
   "contentFormat": "html",
   "content": "<h1>Liverpool FC</h1><p>You’ll never walk alone.</p>",
@@ -201,7 +200,7 @@ request({
 		console.log(error);
     });*/
 
-  // let url= `https://api.medium.com/v1/users/14e77791049fecaf377d99c6e4497b4a6ffe3896f35c14310fa72c7a8f9678b96/posts`;
+  // let url= `;
    
 /* will return
 {
